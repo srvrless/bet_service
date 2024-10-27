@@ -1,0 +1,40 @@
+
+services:
+  line_provider:
+    build:
+      context: ./line_provider
+      dockerfile: Dockerfile
+    ports:
+      - "7777:7777"
+    networks:
+      - app-network
+
+  bet_maker:
+    build:
+      context: ./bet_maker
+      dockerfile: Dockerfile
+    ports:
+      - "8888:8888"
+    networks:
+      - app-network
+    depends_on:
+      - line_provider
+  db:
+      image: postgres:latest
+      container_name: db_cli
+      environment:
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: postgres
+        POSTGRES_DB: something
+      networks:
+        - app-network
+      ports:
+        - 54320:5432
+      volumes:
+        - db_data:/var/lib/postgresql/data
+
+networks:
+  app-network:
+    driver: bridge
+volumes:
+  db_data:
