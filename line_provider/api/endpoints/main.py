@@ -46,7 +46,6 @@ async def update_event_status(event_id: str, status_update: EventStatusUpdate):
     event_response.status = status_update.status
     event["event_id"] = event_id
     event["status"] = str(status_update.status)
-    print(event)
     async with aiohttp.ClientSession() as session:
         async with session.patch(f"{BET_MAKER_URL}/bets/status", json=event):
             return event_response

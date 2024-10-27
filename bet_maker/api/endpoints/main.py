@@ -23,7 +23,6 @@ async def get_available_events():
                 )
 
             events = await response.json()
-            print(events)
             available_events = [
                 event for event in events if event["status"] == "pending"
             ]
@@ -39,7 +38,6 @@ async def place_bet(
             f"{LINE_PROVIDER_URL}/events/all?id={bet_data.event_id}"
         ) as response:
             event = (await response.json())[0]
-            print(event)
             if response.status != 200 or not await response.json():
                 raise HTTPException(status_code=404, detail="Event not found")
 
@@ -86,7 +84,6 @@ async def edit_bet_status(
         bet_data["status"] = "won"
     else:
         bet_data["status"] = "lost"
-    print(bet_data)
     query = update(Bet).values(bet_data).filter_by(event_id=bet_data["event_id"])
     stmt = await session.execute(query)
     await session.commit()
