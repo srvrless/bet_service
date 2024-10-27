@@ -1,5 +1,4 @@
 import enum
-from typing import Optional
 from db.models import BetStatus
 from pydantic import BaseModel, condecimal
 

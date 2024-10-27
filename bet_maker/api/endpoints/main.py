@@ -5,7 +5,7 @@ import aiohttp
 from db.connection import async_get_session
 from db.models import Bet
 from fastapi import APIRouter, Depends, HTTPException
-from schemas.bets import BetCreate, BetEdit, BetResponse
+from schemas.bets import BetCreate, BetResponse
 from sqlalchemy import select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
